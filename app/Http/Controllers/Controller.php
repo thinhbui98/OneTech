@@ -10,4 +10,14 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function category()
+    {
+        $category = MCategory::where([
+            'deleted' => 0,
+            'parent' => 0
+        ])
+        ->get()->toArray();
+        return view('admin.index',['category' => $category]);
+    }
 }

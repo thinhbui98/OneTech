@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ListController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::any('/', function () {
+        return redirect('admin/login');
+    });
+
+    Route::any('login', [AdminController::class, 'login']);
+
+    Route::get('index', [AdminController::class, 'index']);
+
+    Route::any('list', [ListController::class, 'list']);
 });
